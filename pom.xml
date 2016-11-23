@@ -1,0 +1,156 @@
+<project 
+    xmlns="http://maven.apache.org/POM/4.0.0" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    
+    <modelVersion>4.0.0</modelVersion>
+    
+    <groupId>com.danhaywood.mavenmixin</groupId>
+    <artifactId>jettyconsole</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+
+    <packaging>pom</packaging>
+    
+    <name>${project.groupId}:${project.artifactId}</name>
+    <description>
+        Maven mixin to package up a webapp as a standalone executable, and to allow the resultant executable to be called using mvn antrun:run
+    </description>
+    
+    <url>https://github.com/danhaywood/java-mavenmixin-jettyconsole</url>
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <scm>
+        <connection>scm:git:git@github.com:danhaywood/java-mavenmixin-jettyconsole.git</connection>
+        <developerConnection>scm:git:git@github.com:danhaywood/java-mavenmixin-jettyconsole.git</developerConnection>
+        <url>git@github.com:danhaywood/java-mavenmixin-jettyconsole.git</url>
+    </scm>
+    <developers>
+        <developer>
+            <id>danhaywood</id>
+            <name>Dan Haywood</name>
+            <email>dan@haywood-associates.co.uk</email>
+        </developer>
+    </developers>    
+
+    <properties>
+		<danhaywood-mavenmixin-jettyconsole.backgroundImage></danhaywood-mavenmixin-jettyconsole.backgroundImage>
+		<danhaywood-mavenmixin-jettyconsole.args></danhaywood-mavenmixin-jettyconsole.args>
+    </properties>
+        
+    <profiles>
+        <profile>
+            <id>danhaywood-mavenmixin-jettyconsole</id>
+            <activation>
+                <property>
+                    <name>danhaywood-mavenmixin-jettyconsole</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+
+					<!-- mvn package -->
+					<!-- https://github.com/eirbjo/jetty-console -->
+					<!-- http://simplericity.com/2009/11/10/1257880778509.html -->
+					<plugin>
+						<groupId>org.simplericity.jettyconsole</groupId>
+						<artifactId>jetty-console-maven-plugin</artifactId>
+						<version>1.59</version>
+						<executions>
+							<execution>
+								<goals>
+									<goal>createconsole</goal>
+								</goals>
+								<configuration>
+									<additionalDependencies>
+										<additionalDependency>
+											<artifactId>jetty-console-winsrv-plugin</artifactId>
+										</additionalDependency>
+										<additionalDependency>
+											<artifactId>jetty-console-startstop-plugin</artifactId>
+										</additionalDependency>
+									</additionalDependencies>
+									<backgroundImage>${danhaywood-mavenmixin-jettyconsole.backgroundImage}</backgroundImage>
+								</configuration>
+								<phase>package</phase>
+							</execution>
+						</executions>
+					</plugin>
+
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>1.7</version>
+							<configuration>
+							<tasks>
+								<java 
+									jar="${project.build.directory}/${project.build.finalName}-jetty-console.war" 
+									fork="true">
+									<arg line="${danhaywood-mavenmixin-jettyconsole.args}"/>
+								</java>
+<!--
+								<exec executable="java" failonerror="true">
+									<arg value="-jar" />
+									<arg value="${project.build.directory}/${project.build.finalName}-jetty-console.war" />
+								</exec>
+-->
+							</tasks>
+						</configuration>
+					</plugin>
+
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>danhaywood-mavenmixin-sonatyperelease</id>
+            <!-- 
+            this profile is not part of the mixin, but is required to be defined as a profile
+            in order to release this mixin pom.xml to Maven Central repo
+            -->
+            <build>
+                <plugins>
+                    <!-- http://central.sonatype.org/pages/apache-maven.html -->
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>1.6.2</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                        </configuration>
+                    </plugin>
+                    <!-- http://kohsuke.org/pgp-maven-plugin/secretkey.html instead of maven-gpg-plugin -->
+                    <plugin>
+                        <groupId>org.kohsuke</groupId>
+                        <artifactId>pgp-maven-plugin</artifactId>
+                        <version>1.1</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>ossrh</id>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+                </snapshotRepository>
+            </distributionManagement>
+        </profile>
+    </profiles>
+
+
+    
+</project>
