@@ -52,10 +52,6 @@
             </activation>
             <build>
                 <plugins>
-
-					<!-- mvn package -->
-					<!-- https://github.com/eirbjo/jetty-console -->
-					<!-- http://simplericity.com/2009/11/10/1257880778509.html -->
 					<plugin>
 						<groupId>org.simplericity.jettyconsole</groupId>
 						<artifactId>jetty-console-maven-plugin</artifactId>
@@ -92,12 +88,6 @@
 									fork="true">
 									<arg line="${danhaywood-mavenmixin-jettyconsole.args}"/>
 								</java>
-<!--
-								<exec executable="java" failonerror="true">
-									<arg value="-jar" />
-									<arg value="${project.build.directory}/${project.build.finalName}-jetty-console.war" />
-								</exec>
--->
 							</tasks>
 						</configuration>
 					</plugin>
