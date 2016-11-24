@@ -22,10 +22,10 @@ The plugin has two properties, both optional:
 [source,xml]
 ----
 <properties>
-    <danhaywood-mavenmixin-jettyconsole.backgroundImage>        <!--1-->
+    <danhaywood-mavenmixin-jettyconsole.backgroundImage>                                   <!--1-->
         ${basedir}/src/main/jettyconsole/isis-banner.png
     </danhaywood-mavenmixin-jettyconsole.backgroundImage>
-	<danhaywood-mavenmixin-jettyconsole.args/>                  <!--2-->
+    <danhaywood-mavenmixin-jettyconsole.args></danhaywood-mavenmixin-jettyconsole.args>    <!--2-->
 </properties>
 ----
 <1> (optional) the background image to use
