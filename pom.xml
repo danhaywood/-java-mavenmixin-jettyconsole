@@ -42,7 +42,7 @@
         <maven-antrun-plugin.version>1.8</maven-antrun-plugin.version>
 
 		<jetty-console-maven-plugin.backgroundImage></jetty-console-maven-plugin.backgroundImage>
-		<maven-antrun-plugin.java.args></maven-antrun-plugin.java.args>
+		<maven-antrun-plugin.jettyconsole.args></maven-antrun-plugin.jettyconsole.args>
     </properties>
         
     <profiles>
@@ -89,7 +89,7 @@
 								<java 
 									jar="${project.build.directory}/${project.build.finalName}-jetty-console.war" 
 									fork="true">
-									<arg line="${maven-antrun-plugin.java.args}"/>
+									<arg line="${maven-antrun-plugin.jettyconsole.args}"/>
 								</java>
 							</tasks>
 						</configuration>

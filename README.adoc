@@ -63,10 +63,10 @@ and: +
 ----
 <properties>
     ...
-    <jetty-console-maven-plugin.backgroundImage>                            <!--1-->
+    <jetty-console-maven-plugin.backgroundImage>                                        <!--1-->
         ${basedir}/src/main/jettyconsole/isis-banner.png
     </jetty-console-maven-plugin.backgroundImage>
-    <maven-antrun-plugin.java.args></maven-antrun-plugin.java.args>         <!--2-->
+    <maven-antrun-plugin.jettyconsole.args></maven-antrun-plugin.jettyconsole.args>     <!--2-->
     ...
 </properties>
 ----
@@ -136,13 +136,13 @@ Alternatively, the configured AntRun plugin can be used:
 mvn antrun:run -Dmavenmixin-jettyconsole
 ----
 
-Additional arguments can be specified using the `maven-antrun-plugin.java.args` system property.
+Additional arguments can be specified using the `maven-antrun-plugin.jettyconsole.args` system property.
 For example:
 
 [source,bash]
 ----
 mvn antrun:run -Dmavenmixin-jettyconsole \
-               -Dmaven-antrun-plugin.java.args="--headless --port 9090"
+               -Dmaven-antrun-plugin.jettyconsole.args="--headless --port 9090"
 ----
 
 
