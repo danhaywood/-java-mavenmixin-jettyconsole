@@ -116,7 +116,7 @@ To generate the runnable jetty-console WAR file, use:
 
 [source,bash]
 ----
-mvn package -Dmavenmixin-jettyconsole
+mvn install -Dmavenmixin-jettyconsole
 ----
 
 This will generate a `xxx-jetty-console.war` file in the `target` directory.
@@ -133,7 +133,7 @@ Alternatively, the configured AntRun plugin can be used:
 
 [source,bash]
 ----
-mvn antrun:run -Dmavenmixin-jettyconsole
+mvn -pl webapp antrun:run -Dmavenmixin-jettyconsole
 ----
 
 Additional arguments can be specified using the `maven-antrun-plugin.jettyconsole.args` system property.
@@ -141,7 +141,7 @@ For example:
 
 [source,bash]
 ----
-mvn antrun:run -Dmavenmixin-jettyconsole \
+mvn -pl webapp antrun:run -Dmavenmixin-jettyconsole \
                -Dmaven-antrun-plugin.jettyconsole.args="--headless --port 9090"
 ----
 
